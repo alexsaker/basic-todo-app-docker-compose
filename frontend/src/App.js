@@ -3,7 +3,7 @@ import Header from './components/Header';
 import TodoItems from './components/TodoItems';
 import CreateTodo from './components/CreateTodo';
 
-const SERVER_URL = 'http://todo-backend:3001';
+const SERVER_URL = 'http://localhost:3001';
 
 const App = () => {
   useEffect(() => {
