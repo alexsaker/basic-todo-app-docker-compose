@@ -37,18 +37,28 @@ app.get('/', (req, res) => {
 
 const PORT = 3001;
 const isProd = process.env.NODE_ENV === 'production';
-const password = process.env.PASSWORD || 'password';
+const password = process.env.DB_PASSWORD || 'password';
+const dbUser = process.env.DB_USER || 'root';
+
+const setupDb = (db) => {
+  db.query('create database todo_app;')
+    .then(() => db.query('use todo_app;'))
+    .then(() =>
+      db.query(
+        'create table todos (description varchar(255), id int primary key auto_increment);'
+      )
+    )
+    .catch(console.log);
+};
 
 mysql
   .createConnection({
     host: isProd ? 'mysql-server' : 'localhost', // for container use 'mysql' otherwise use 'localhost'
-    user: 'root',
-    database: 'todo_app',
+    user: dbUser,
     password,
   })
   .then((_connection) => {
     connection = _connection;
+    setupDb(connection);
     app.listen(PORT, () => console.log('Server is running on', PORT));
   });
-
-// app.listen(PORT, () => console.log('App is listening on => ', PORT));

@@ -1,0 +1,41 @@
+version: '3.7'
+name: todo-app
+
+services:
+  todo-frontend:
+    container_name: todo-frontend
+    build: ./frontend
+    ports:
+      - 4000:80
+    networks:
+      - todo-app
+    depends_on:
+      - todo-backend
+
+  todo-backend:
+    container_name: todo-server
+    build: ./backend
+    ports:
+      - 3000:3000
+    networks:
+      - todo-app
+    environment:
+      - NODE_ENV=production
+      - DB_USER=root
+      - DB_PASSWORD=password
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql-server
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: todo_app
+    networks:
+      - todo-app
+
+networks:
+  todo-app:
