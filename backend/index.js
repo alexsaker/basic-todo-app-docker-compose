@@ -48,7 +48,8 @@ const setupDb = (db) => {
         'create table todos (description varchar(255), id int primary key auto_increment);'
       )
     )
-    .catch(console.log);
+    .catch(console.log)
+    .finally(() => db.query('use todo_app;'));
 };
 
 mysql
