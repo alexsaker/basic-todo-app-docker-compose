@@ -13,10 +13,10 @@ services:
       - todo-backend
 
   todo-backend:
-    container_name: todo-server
+    container_name: todo-backend
     build: ./backend
     ports:
-      - 3000:3000
+      - 3001:3001
     networks:
       - todo-app
     environment:
@@ -27,7 +27,7 @@ services:
       - mysql
 
   mysql:
-    container_name: mysql-server
+    container_name: mysql
     image: mysql:5.7
     volumes:
       - ./mysql:/var/lib/mysql
