@@ -53,7 +53,7 @@ const setupDb = (db) => {
 
 mysql
   .createConnection({
-    host: isProd ? 'mysql-server' : 'localhost', // for container use 'mysql' otherwise use 'localhost'
+    host: isProd ? 'mysql' : 'localhost', // for container use 'mysql' otherwise use 'localhost'
     user: dbUser,
     password,
   })
