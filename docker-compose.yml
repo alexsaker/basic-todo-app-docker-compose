@@ -32,7 +32,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mysql:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: todo_app
@@ -41,3 +41,7 @@ services:
 
 networks:
   todo-app:
+
+volumes:
+  mysql-data:
+
