@@ -41,15 +41,15 @@ const password = process.env.DB_PASSWORD || 'password';
 const dbUser = process.env.DB_USER || 'root';
 
 const setupDb = (db) => {
-  db.query('drop database todo_app;');
+  //db.query('drop database todo_app;');
 
-  db.query('create database todo_app;')
+  db.query('CREATE DATABASE IF NOT EXISTS todo_app;')
     .then((result) => {
       return db.query('use todo_app;');
     })
     .then(() =>
       db.query(
-        'create table todos (description varchar(255), id int primary key auto_increment);'
+        'CREATE TABLE IF NOT EXISTS todos (description varchar(255), id int primary key auto_increment);'
       )
     )
     .catch(console.log)
